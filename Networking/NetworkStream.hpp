@@ -4,11 +4,12 @@
 
 class NetworkStream {
 
-NetworkStream(int sock_fd);
+public:
+    NetworkStream(int sock_fd);
 
-const std::string Read(unsigned int bufferSize);
-void Write(const std::string& data);
-void Close();
+    const std::string Read(unsigned int bufferSize);
+    void Write(const std::string& data);
+    void Close();
 
 private:
     int m_sock_fd;
