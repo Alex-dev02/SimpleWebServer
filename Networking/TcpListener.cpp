@@ -10,6 +10,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <iostream>
 
 #include "TcpListener.hpp"
 
@@ -33,7 +34,7 @@ std::unique_ptr<NetworkStream> TcpListener::AcceptClient() {
     struct sockaddr_storage their_addr; // connector's address information
     char s[INET6_ADDRSTRLEN];
 
-    printf("server: waiting for connections...");
+    std::cout << "server: waiting for connections...\n";
 
     sin_size = sizeof their_addr;
     new_fd = accept(m_sock_fd, (struct sockaddr *)&their_addr, &sin_size);
@@ -45,7 +46,7 @@ std::unique_ptr<NetworkStream> TcpListener::AcceptClient() {
         get_in_addr((struct sockaddr *)&their_addr),
         s, sizeof s
     );
-    printf("server: got connection from %s", s);
+    std::cout << "server: got connection from " << s << '\n';
 
     return std::make_unique<NetworkStream>(new_fd);
 }
@@ -81,7 +82,7 @@ void TcpListener::Init() {
     SetupSocketSpecs(hints);
 
     if ((rv = getaddrinfo(NULL, std::to_string(m_port).c_str(), &hints, &servinfo)) != 0) {
-        printf("getaddrinfo: %s", gai_strerror(rv));
+        std::cout << "getaddrinfo: " << gai_strerror(rv) << '\n';
         throw std::exception();
     }
 
@@ -135,7 +136,7 @@ void TcpListener::SetupSocketSpecs(struct addrinfo& hints) {
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
-    printf("Set up socket specs");
+    std::cout << "Set up socket specs\n";
 }
 
 void TcpListener::BindToSocket(struct addrinfo* p, struct addrinfo *servinfo, int& yes) {

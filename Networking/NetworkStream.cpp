@@ -23,7 +23,7 @@ const std::string NetworkStream::Read(unsigned int bufferSize) {
 void NetworkStream::Write(const std::string& data) {
     int err = send(m_sock_fd, data.c_str(), data.length(), 0);
     if (err == -1)
-        std::cerr << "Failed to write: " + *strerror(err) << "\n";
+        std::cerr << "Failed to write: " + (*strerror(err)) << "\n";
 }
 
 void NetworkStream::Close() {
