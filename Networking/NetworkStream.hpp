@@ -7,6 +7,7 @@ class NetworkStream {
 public:
     NetworkStream(int sock_fd);
 
+    [[nodiscard]]
     const std::string Read(unsigned int bufferSize);
     void Write(const std::string& data);
     void Close();

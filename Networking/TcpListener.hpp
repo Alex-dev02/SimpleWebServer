@@ -12,6 +12,8 @@ public:
 
     void Start();
     void Stop();
+    
+    [[nodiscard]]
     std::unique_ptr<NetworkStream> AcceptClient();
 
 private:
