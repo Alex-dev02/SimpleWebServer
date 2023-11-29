@@ -4,10 +4,24 @@
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
+#include <thread>
 
 #include <Networking/NetworkStream.hpp>
 #include <Networking/TcpListener.hpp>
 #include <Server/Server.hpp>
+#include <Worker/Worker.hpp>
+
+void LaunchServer(
+    std::unique_ptr<TcpListener> listener,
+    std::shared_ptr<std::queue<std::unique_ptr<NetworkStream>>> queue,
+    std::shared_ptr<std::atomic_uint32_t> queuedStreams, std::shared_ptr<std::mutex> mtx,
+    std::shared_ptr<std::condition_variable> cond
+) {
+
+    Server s(std::move(listener), queue, queuedStreams, mtx, cond);
+    s.Listen();
+
+}
 
 int main() {
     std::uint16_t port = 5000;
@@ -19,9 +33,11 @@ int main() {
     std::shared_ptr<std::mutex> mtx = std::make_shared<std::mutex>();
     std::shared_ptr<std::condition_variable> cond = std::make_shared<std::condition_variable>();
 
-    Server s(std::move(listener), queue, queuedStreams, mtx, cond);
+    std::thread server(LaunchServer, std::move(listener), queue, queuedStreams, mtx, cond);
+    server.detach();
 
-    s.Listen();
+    Worker worker(queue, queuedStreams, mtx, cond);
+    worker.ProcessQueue();
 
     return 0;
 }
