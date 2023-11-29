@@ -9,6 +9,7 @@ add_executable(sws main.cpp)
 
 add_subdirectory(Networking)
 add_subdirectory(Server)
+add_subdirectory(Worker)
 
 target_link_libraries(libServer libNetworking)
 target_link_libraries(sws libServer libNetworking)
