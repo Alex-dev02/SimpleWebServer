@@ -11,6 +11,7 @@ add_executable(sws main.cpp)
 add_subdirectory(Networking)
 add_subdirectory(Server)
 add_subdirectory(Worker)
+add_subdirectory(Http)
 add_subdirectory(Tests)
 
 target_link_libraries(libServer libNetworking)
