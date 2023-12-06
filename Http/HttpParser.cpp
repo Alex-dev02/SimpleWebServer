@@ -6,8 +6,8 @@ HttpParser::HttpParser(const std::string& request) {
 }
 
 void HttpParser::extractRequestLineFromRequest(const std::string& request) {
-    std::vector<std::string> tokens = Utils::split(request, '\r\n');
-    std::vector<std::string> firstLineTokens = Utils::split(tokens[0], ' ');
+    std::vector<std::string> lines = Utils::split(request, '\r\n');
+    std::vector<std::string> firstLineTokens = Utils::split(lines[0], ' ');
     std::vector<std::string> pathAndParams = Utils::split(firstLineTokens[1], '?');
     std::vector<std::string> paramsAndValues = Utils::split(pathAndParams[1], '&');
 
