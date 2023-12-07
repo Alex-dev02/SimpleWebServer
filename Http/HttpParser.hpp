@@ -7,6 +7,8 @@ class HttpParser {
 public:
 	HttpParser(const std::string& request);
 
+	std::string GetRequestType() const;
+
 private:
 	std::string m_requestType;
 	std::string m_path;

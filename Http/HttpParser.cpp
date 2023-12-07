@@ -3,6 +3,7 @@
 #include <Utils/Utils.hpp>
 
 HttpParser::HttpParser(const std::string& request) {
+    ExtractRequestLineFromRequest(request);
 }
 
 void HttpParser::ExtractRequestLineFromRequest(const std::string& request) {
@@ -15,4 +16,8 @@ void HttpParser::ExtractRequestLineFromRequest(const std::string& request) {
     m_path = pathAndParams[0];
     m_version = Utils::Split(firstLineTokens[2], '/')[1];
     m_queryParams = Utils::SeparateVectorOfKeysAndValues(paramsAndValues, '=');
+}
+
+std::string HttpParser::GetRequestType() const {
+    return m_requestType;
 }
