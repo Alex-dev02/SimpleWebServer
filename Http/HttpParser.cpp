@@ -5,14 +5,14 @@
 HttpParser::HttpParser(const std::string& request) {
 }
 
-void HttpParser::extractRequestLineFromRequest(const std::string& request) {
-    std::vector<std::string> lines = Utils::split(request, '\r\n');
-    std::vector<std::string> firstLineTokens = Utils::split(lines[0], ' ');
-    std::vector<std::string> pathAndParams = Utils::split(firstLineTokens[1], '?');
-    std::vector<std::string> paramsAndValues = Utils::split(pathAndParams[1], '&');
+void HttpParser::ExtractRequestLineFromRequest(const std::string& request) {
+    std::vector<std::string> lines = Utils::Split(request, '\r\n'); // FIXME: _|_
+    std::vector<std::string> firstLineTokens = Utils::Split(lines[0], ' ');
+    std::vector<std::string> pathAndParams = Utils::Split(firstLineTokens[1], '?');
+    std::vector<std::string> paramsAndValues = Utils::Split(pathAndParams[1], '&');
 
     m_requestType = firstLineTokens[0];
     m_path = pathAndParams[0];
-    m_version = Utils::split(firstLineTokens[2], '/')[1];
-    m_queryParams = Utils::separateVectorOfKeysAndValues(paramsAndValues, '=');
+    m_version = Utils::Split(firstLineTokens[2], '/')[1];
+    m_queryParams = Utils::SeparateVectorOfKeysAndValues(paramsAndValues, '=');
 }

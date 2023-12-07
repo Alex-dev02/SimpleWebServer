@@ -13,5 +13,5 @@ private:
 	std::string m_version;
     std::unordered_map<std::string, std::string> m_queryParams;
 
-	void extractRequestLineFromRequest(const std::string& request);
+	void ExtractRequestLineFromRequest(const std::string& request);
 };

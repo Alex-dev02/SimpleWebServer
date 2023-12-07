@@ -11,10 +11,11 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  helloWorldTest
+  tests
   UnitTests/HelloWorldTest.cpp
+  UnitTests/HttpParserTest.cpp
 )
-target_link_libraries(helloWorldTest gtest_main)
+target_link_libraries(tests gtest_main)
 
 include(GoogleTest)
-gtest_discover_tests(helloWorldTest)
+gtest_discover_tests(tests)
