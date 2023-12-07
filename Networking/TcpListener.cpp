@@ -24,8 +24,8 @@ void TcpListener::Start() {
     Init();
 }
 
-void TcpListener::Stop() {
-    close(m_sock_fd);
+int TcpListener::Stop() {
+    return close(m_sock_fd);
 }
 
 std::unique_ptr<NetworkStream> TcpListener::AcceptClient() {
