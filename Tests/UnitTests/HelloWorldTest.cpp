@@ -3,5 +3,5 @@
 // First comes the name of the test suite (e.g. NetworkingTests, RouterTests)
 // Second comes the name of the test itself
 TEST(HelloWorldTest, HelloWorldAssertion) {
-    EXPECT_NE("hello", "world");
+  EXPECT_STRNE("hello", "world");
 }
